@@ -18,16 +18,36 @@ pygame.init()
 # 
 pygame.display.set_caption("Platformer")
 
-BG_Color = {255, 255, 255}
 WIDTH, HEIGHT = 1000, 800
 FPS = 60
 PLAYER_VEL = 5
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
+def get_background(name): # using tile images create background
+    image = pygame.image.load(join("assets", "Background", name))
+    _, _, width, height = image.get_rect()
+    tiles = []
+    # loop through tiles in width and height direction
+    for i in range(WIDTH // width + 1):
+        for j in range(HEIGHT // height + 1):
+            pos = (i * width, j * height) # position of the tile from the top left corner to move
+            tiles.append(pos)
+
+    return tiles, image
+
+# draw background
+def draw(window, background, bg_image):
+    for tile in background:
+        window.blit(bg_image, tile)
+
+    pygame.display.update()
+
 def main(window): 
     # event loop for collision, character
     clock = pygame.time.Clock()
+    #  refernce background function
+    background, bg_image = get_background("Brown.png")
 
     run = True
     while run:
@@ -37,6 +57,9 @@ def main(window):
             if event.type == pygame.QUIT:
                 run = False
                 break # break loop if player quirtes the game
+
+        # draw background function
+        draw(window, background, bg_image)
 
     pygame.quit()
     quit()
