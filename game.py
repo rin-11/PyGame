@@ -14,3 +14,32 @@ from os.path import isfile, join # isfile is used to check if a given path point
 
 # intitialize pygame module
 pygame.init()
+
+# 
+pygame.display.set_caption("Platformer")
+
+BG_Color = {255, 255, 255}
+WIDTH, HEIGHT = 1000, 800
+FPS = 60
+PLAYER_VEL = 5
+
+window = pygame.display.set_mode((WIDTH, HEIGHT))
+
+def main(window): 
+    # event loop for collision, character
+    clock = pygame.time.Clock()
+
+    run = True
+    while run:
+        clock.tick(FPS) # while loop runs max 60 frames per second
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break # break loop if player quirtes the game
+
+    pygame.quit()
+    quit()
+
+if __name__ == "__main__":
+    main(window)
